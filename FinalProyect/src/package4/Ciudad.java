@@ -12,7 +12,8 @@ public class Ciudad implements Serializable {
     private String nombreCiudad;
     private String nombreProv;
 
-    public Ciudad(String nombreC, String nombrePro, String id) {
+    public Ciudad(String id, String nombreC, String nombrePro ) {
+        
         identificacion = id;
         nombreProv = nombrePro;
         nombreCiudad = nombreC;

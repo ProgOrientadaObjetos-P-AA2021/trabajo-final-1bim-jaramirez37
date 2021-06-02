@@ -27,33 +27,49 @@ public class Controlador {
                 switch (opcionSecundaria) {
                     case "1":
                         subirRegistroPropietario();
+                        break;
                     case "2":
                         subirRegistroUbicacion();
+                        break;
                     case "3":
                         subirRegistroCiudad();
+                        break;
                     case "4":
                         subirRegistroConstructora();
+                        break;
                     case "5":
                         subirRegistroCasa();
+                        break;
                     case "6":
                         subirRegistroDepartamento();
+                        break;
                 }
+                break;
             case "2":
+
                 switch (opcionSecundaria) {
                     case "1":
+
                         mostrarRegistrosPropietarios();
+                        break;
                     case "2":
                         mostrarRegistrosUbicaciones();
+                        break;
                     case "3":
                         mostrarRegistrosCiudades();
+                        break;
                     case "4":
                         mostrarRegistrosConstructoras();
+                        break;
                     case "5":
                         mostrarRegistrosCasas();
+                        break;
                     case "6":
                         mostrarRegistrosDepartamentos();
+                        break;
 
                 }
+                break;
         }
     }
 
@@ -86,6 +102,7 @@ public class Controlador {
             Ciudad ciudad = archivos.deserializarCiudad(Integer.toString(i));
             System.out.println("ID: " + ciudad.getIdentificacion());
             System.out.println("Nombre ciudad: " + ciudad.getNombreCiudad());
+            System.out.println("Nombre Provincia: " + ciudad.getNombreProv());
             System.out.println("");
         }
     }
@@ -94,8 +111,8 @@ public class Controlador {
         int cantidadConstructoras = Integer.parseInt(obtenerUltimoId("constructoras"));
         for (int i = 1; i <= cantidadConstructoras; i++) {
             Constructora constructora = archivos.deserializarConstructora(Integer.toString(i));
-            System.out.print("ID: " + constructora.getIdentificacion());
-            System.out.print("Nombre de la empresa: "
+            System.out.println("ID: " + constructora.getIdentificacion());
+            System.out.println("Nombre de la empresa: "
                     + constructora.getNombreConstructora());
             System.out.println("");
         }
@@ -106,14 +123,14 @@ public class Controlador {
 
         for (int i = 1; i <= cantidadCasas; i++) {
             Casa casa = archivos.deserializarCasa(Integer.toString(i));
-            System.out.print("ID: " + casa.getIdentificacion());
-            System.out.print("ID de la constructora-> " + casa.getConstructora());
-            System.out.print("ID del propietario: " + casa.getIdentificacion());
-            System.out.print("Metros cuadrados: " + casa.getmCuadrados());
-            System.out.print("Precio m²: " + casa.getmCuadradosPrecio());
-            System.out.print("Nombre ciudad-> " + casa.getCiudad().getNombreCiudad());
-            System.out.print("Número de Casa: " + casa.getUbicacion().getNumeroCasa());
-            System.out.print("Número cuartos: " + casa.getnCuartos());
+            System.out.println("ID: " + casa.getIdentificacion());
+            System.out.println("ID de la constructora-> " + casa.getConstructora());
+            System.out.println("ID del propietario: " + casa.getIdentificacion());
+            System.out.println("Metros cuadrados: " + casa.getmCuadrados());
+            System.out.println("Precio m²: " + casa.getmCuadradosPrecio());
+            System.out.println("Nombre ciudad: " + casa.getCiudad().getNombreCiudad());
+            System.out.println("Número de Casa: " + casa.getUbicacion().getNumeroCasa());
+            System.out.println("Número cuartos: " + casa.getnCuartos());
             System.out.println("");
         }
     }
@@ -153,7 +170,7 @@ public class Controlador {
 
         System.out.println("Barrio: ");
         String barrio = leer.nextLine();
-        
+
         System.out.println("Referencia: ");
         String referencia = leer.nextLine();
 
@@ -162,7 +179,7 @@ public class Controlador {
         archivos.serializarUbicacion(id, ubicacion);
     }
 
-    public void subirRegistroCiudad() {
+    public void subirRegistroCiudad() throws IOException {
         System.out.println("Nombre ciudad: ");
         String nombreCiudad = leer.nextLine();
         System.out.println("Nombre provincia: ");
@@ -170,6 +187,7 @@ public class Controlador {
 
         String id = obtenerYModificarUltimoId("ciudades");
         Ciudad ciudad = new Ciudad(id, nombreCiudad, nombreProvincia);
+        archivos.serializarCiudad(id, ciudad);
     }
 
     public void subirRegistroConstructora() throws IOException {
@@ -201,7 +219,7 @@ public class Controlador {
         System.out.println("Nombre ciudad-> ");
         String nombreCiudad = leer.nextLine();
 
-        System.out.println("ID de la constructora-> ");
+        System.out.println("ID de la constructora: ");
         String constructoraID = leer.nextLine();
 
         String id = obtenerYModificarUltimoId("casas");
@@ -261,8 +279,10 @@ public class Controlador {
         Propietario propietario = null;
         int cantidadPropietarios = Integer.parseInt(obtenerUltimoId("propietarios"));
         for (int i = 1; i <= cantidadPropietarios; i++) {
-            if (archivos.deserializarPropietario(Integer.toString(i)).getIdentificacion() == id) {
-                propietario = archivos.deserializarPropietario(Integer.toString(i));
+            Propietario prop = archivos.deserializarPropietario(
+                    Integer.toString(i));
+            if (prop.getIdentificacion() == id) {
+                propietario = prop;
             }
         }
         return propietario;
@@ -272,8 +292,10 @@ public class Controlador {
         Ubicacion ubicacion = null;
         int cantidadUbicaciones = Integer.parseInt(obtenerUltimoId("ubicaciones"));
         for (int i = 1; i <= cantidadUbicaciones; i++) {
-            if (archivos.deserializarUbicacion(Integer.toString(i)).getNumeroCasa() == numCasa) {
-                ubicacion = archivos.deserializarUbicacion(Integer.toString(i));
+            Ubicacion ub = archivos.deserializarUbicacion(
+                    Integer.toString(i));
+            if (ub.getNumeroCasa() == numCasa) {
+                ubicacion = ub;
             }
         }
         return ubicacion;
@@ -283,8 +305,10 @@ public class Controlador {
         Ciudad ciudad = null;
         int cantidadCiudades = Integer.parseInt(obtenerUltimoId("ciudades"));
         for (int i = 1; i <= cantidadCiudades; i++) {
-            if (archivos.deserializarCiudad(Integer.toString(i)).getNombreCiudad() == nombre) {
-                ciudad = archivos.deserializarCiudad(Integer.toString(i));
+            Ciudad cd = archivos.deserializarCiudad(
+                    Integer.toString(i));
+            if (cd.getNombreCiudad() == nombre) {
+                ciudad = cd;
             }
         }
         return ciudad;
@@ -292,11 +316,12 @@ public class Controlador {
 
     public Constructora obtenerConstructoraPorId(String id) throws IOException {
         Constructora constructora = null;
-        int cantidadConstructoras = Integer.parseInt(obtenerUltimoId("constructoras"));
+        int cantidadConstructoras = Integer.parseInt(obtenerUltimoId("constructora"));
         for (int i = 1; i <= cantidadConstructoras; i++) {
-            Constructora con = archivos.deserializarConstructora(Integer.toString(i));
-            if (archivos.deserializarConstructora(Integer.toString(i)).getIdentificacion() == id) {
-                constructora = archivos.deserializarConstructora(Integer.toString(i));
+            Constructora con = archivos.deserializarConstructora(
+                    Integer.toString(i));
+            if (con.getIdentificacion() == id) {
+                constructora = con;
             }
         }
         return constructora;

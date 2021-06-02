@@ -19,7 +19,7 @@ public class Principal {
         boolean salir = false;
 
         while (salir == false) {
-            System.out.println("Administración Inmobiliaria");
+            System.out.println("---------------Administración Inmobiliaria--------------------");
             System.out.println("1.Ingresar registros");
             System.out.println("2.Mostrar registros");
             System.out.print("Escoga una opción(1 o 2) ");

@@ -183,7 +183,7 @@ public class DesYSerializador {
             Constructora constructora) throws IOException {
 
         FileOutputStream flujoSalida = new FileOutputStream(dir
-                + "\\datos\\constructores\\constructor" + nombreArchivo + ".data");
+                + "\\datos\\constructoras\\constructora" + nombreArchivo + ".data");
         ObjectOutputStream flujoObjetoSalida = new ObjectOutputStream(flujoSalida);
 
         try {
